@@ -103,6 +103,16 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+        
+        #logout-button {
+            background-color: #f44336;
+            margin-top: 20px;
+        }
+
+        #logout-button:hover {
+            background-color: #e53935;
+        }
     </style>
 </head>
 
@@ -112,8 +122,10 @@ button:hover {
 
     </div>
     <div id="posts-container"></div>
-
+    
+<button id="logout-button">Logout</button>
     <h2>Create a new Blog Post</h2>
+    
     <form id="create-form">
         <input type="text" id="title" placeholder="Title" required />
         <textarea id="content" placeholder="Content" required></textarea>
