@@ -62,28 +62,8 @@ app.post("/login", (req, res) => {
   });
 });
 
-// Middleware to verify JWT token
-const verifyToken = (req, res, next) => {
-  const token = req.headers["authorization"];
-  if (!token) return res.status(401).send({ message: "No token provided" });
-
-  // Verify token
-  jwt.verify(token.split(" ")[1], JWT_SECRET, (err, decoded) => {
-    if (err) return res.status(401).send({ message: "Invalid token" });
-    req.user = decoded;
-    next();
-  });
-};
-
-// Protected route example
-app.get("/protected", verifyToken, (req, res) => {
-  res.send({
-    message: `Welcome, ${req.user.username}. You are authenticated!`,
-  });
-});
-
-// Blog APIs (only protected routes are restricted to authenticated users)
-app.post("/blog", verifyToken, (req, res) => {
+// Blog APIs (No authentication required)
+app.post("/blog", (req, res) => {
   const { content, author } = req.body;
   const date = new Date();
   const sql =
@@ -94,7 +74,7 @@ app.post("/blog", verifyToken, (req, res) => {
   });
 });
 
-app.get("/blog", verifyToken, (req, res) => {
+app.get("/blog", (req, res) => {
   const sql = "SELECT * FROM blog_posts";
   db.query(sql, (err, results) => {
     if (err) return res.status(500).send(err);
@@ -113,7 +93,7 @@ app.get("/blog/:id", (req, res) => {
   });
 });
 
-app.delete("/blog/:id", verifyToken, (req, res) => {
+app.delete("/blog/:id", (req, res) => {
   const { id } = req.params;
   const sql = "DELETE FROM blog_posts WHERE id = ?";
   db.query(sql, [id], (err, result) => {
@@ -124,7 +104,7 @@ app.delete("/blog/:id", verifyToken, (req, res) => {
   });
 });
 
-app.patch("/blog/:id", verifyToken, (req, res) => {
+app.patch("/blog/:id", (req, res) => {
   const { id } = req.params;
   const fields = [];
   const values = [];
@@ -144,6 +124,5 @@ app.patch("/blog/:id", verifyToken, (req, res) => {
 
 // Start the server
 app.listen(3000, "0.0.0.0", () => {
-  // const serverIP = getServerIP();
   console.log(`Server running on http://3.76.33.89:3000/`);
 });
