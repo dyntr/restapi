@@ -57,3 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
       .catch((error) => console.error("Error creating post:", error));
   });
 });
+
+
+
+ document.getElementById("logout-button").addEventListener("click", function () {
+            localStorage.removeItem("token");
+            window.location.href = "index.html";
+        });
