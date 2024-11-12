@@ -17,7 +17,7 @@ const JWT_SECRET = "0Wg11ndyhI+WpHVYSCT6jxrcC2OPabIcMf/4A8Ip7ug=";
 const db = mysql.createConnection({
   host: "webdatabase.clsi0mo82g1o.eu-central-1.rds.amazonaws.com",
   user: "admin",
-  password: " ifx0KEKJYYXFFVycripj",
+  password: "ifx0KEKJYYXFFVycripj",
   database: "blog_db",
 });
 
